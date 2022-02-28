@@ -1,0 +1,19 @@
+body{
+    background-color: #f9f9f9;
+}
+.logo-section{
+    cursor: pointer;
+    transition: 1.5s;
+}
+.logo-section:hover{
+    transform: scale(1.15);
+}
+
+/* Footer Section */
+footer{
+    margin-top: 9%;
+}
+footer a{
+    text-decoration: none;
+    font-weight: 700;
+}
