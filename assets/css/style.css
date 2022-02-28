@@ -15,11 +15,17 @@ body{
 .main-content, #show-more-btn{
     /* display: none; */
 }
+.card img{
+    width: 65%;
+    margin: auto;
+}
 
 /* Stand By Image */
 
-/* No results found image */
-
+/* No results found Section */
+#no-results-msg{
+    display: none;
+}
 
 /* Footer Section */
 footer{
