@@ -22,49 +22,34 @@
         <!-- Search Bar -->
         <div class="searching-section w-50 m-auto">
             <div class="input-group mb-3 shadow">
-                <input type="text" class="form-control border border-primary" placeholder="Write Mobile's Brand Name or Model" aria-label="Write Mobile's Brand Name or Model" aria-describedby="button-addon2">
-                <button class="btn btn-outline-primary" type="button" id="button-addon2">Button <i class="fas fa-search"></i></button>
+                <input type="text" class="form-control border border-primary" id="input-value" placeholder="Write Mobile's Brand Name or Model" aria-label="Write Mobile's Brand Name or Model" aria-describedby="button-addon2">
+                <button class="btn btn-outline-primary" type="button" id="button-addon2" onclick="search()">Button <i class="fas fa-search"></i></button>
               </div>
         </div>
         <!-- Standing Image Section -->
-        <div class="stand-img mt-5 pt-5 d-flex justify-content-center">
+        <div id="stand-img" class="stand-img mt-2 pt-5 d-flex justify-content-center">
             <img src="assets/images/mobile.svg" width="30%">
         </div>
+        <!-- <div class="no-results" id="no-results">
+            <div class="no-results-img mt-5 d-flex justify-content-center">
+                <img src="assets/images/no-results-found.svg" width="15%">            
+            </div>
+            <h4 class="text-center mt-4">Sorry, No results found !!</h4>
+        </div> -->
     </div>
 
     <!-- Main Content Section -->
     <div class="container main-content mt-5 ">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="row">            
             <div class="col">
-              <div class="card h-100">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">Release Date: Nothing to show</small>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">Release Date: Nothing to show</small>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card h-100">
+              <div class="card h-100 shadow">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">Card title</h5>
                   <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                </div>
+                <div class="ms-4 mb-4">
+                    <button type="button" class="btn btn-outline-primary shadow" id="show-more-btn">Show More</button>
                 </div>
                 <div class="card-footer">
                   <small class="text-muted">Release Date: Nothing to show</small>
@@ -73,9 +58,10 @@
             </div>
           </div>
     </div>
+    
     <!-- Show More Button -->
-    <div class="d-flex justify-content-center m-5">
-        <button type="button" class="btn btn-outline-primary">Show More</button>
+    <div class="d-flex justify-content-center m-5 show-more">
+        <button type="button" class="btn btn-outline-primary shadow" id="show-more-btn">Show More</button>
     </div>
 
 
