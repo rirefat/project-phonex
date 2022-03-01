@@ -1,3 +1,4 @@
+// Load Basic Information of Phones
 const search = () =>{
     let inputValue = document.getElementById('input-value').value;  
     console.log('clicked')
@@ -22,6 +23,7 @@ const displayResult = (data) =>{
             let phoneName = singleData.phone_name;
             let brandName = singleData.brand;
             let imgUrl = singleData.image;
+            let slug = singleData.slug;
             let newDiv = document.createElement('div');
             newDiv.classList.add('col');
             newDiv.innerHTML=`
@@ -32,7 +34,7 @@ const displayResult = (data) =>{
                         <p class="card-text"><strong>Brand:</strong> ${brandName}</p>
                     </div>
                     <div class="ms-4 mb-4">
-                        <button type="button" class="btn btn-outline-primary shadow" id="show-more-btn">Learn More <i class="fas fa-caret-right"></i></button>
+                        <button type="button" class="btn btn-outline-primary shadow" id="show-more-btn" onclick="loadDetails('${slug}')">Learn More <i class="fas fa-caret-right"></i></button>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">Release Date: Nothing to show</small>
@@ -46,22 +48,19 @@ const displayResult = (data) =>{
         noResults(true);
         removeResults(true);
     }
+}
 
 
-    // if(resultStatus == true){
-        // console.log(result)
-        // document.getElementById('no-results').style.display='none';
-        // document.getElementById('stand-img').style.display='block';
-        // for(const singleData in resultData){
-        //     console.log(singleData)
-        // }
+// Load Detailed Specification of Phones
+const loadDetails = (singlePhone) =>{
+    console.log(singlePhone)
+    fetch(`https://openapi.programming-hero.com/api/phone/${singlePhone}`)
+        .then(res => res.json())
+        .then(data => displaySpecs(data))
+}
 
-    // }
-    // else{
-        // console.log(result)
-        // document.getElementById('no-results').style.display='block';
-        // document.getElementById('stand-img').style.display='none';
-    // }
+const displaySpecs = (specificationData) =>{
+    console.log(specificationData.data)
 }
 
 
