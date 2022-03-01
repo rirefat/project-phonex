@@ -10,16 +10,20 @@ const search = () =>{
 
 const displayResult = (data) =>{
     let resultData = data.data;
+    console.log(resultData.length);
     let resultStatus = data.status;
-    console.log(resultStatus);
-    // console.log(resultData);
     if(resultStatus==true){
         noResults(false);
-        removeResults(true);
-        
-        for(const singleData of resultData){
-            console.log(singleData.phone_name);
-            
+        removeResults(true);  
+        if(resultData.length>20){
+            onDisplay(true);
+        }
+        else{
+            onDisplay(false);
+        }
+        let dataSet = resultData.slice(0,20);    
+        for(const singleData of dataSet){
+            console.log(singleData.phone_name);            
             let phoneName = singleData.phone_name;
             let brandName = singleData.brand;
             let imgUrl = singleData.image;
@@ -51,13 +55,13 @@ const displayResult = (data) =>{
 }
 
 
+
 // Load Detailed Specification of Phones
 const loadDetails = (singlePhone) =>{
     console.log(singlePhone)
     fetch(`https://openapi.programming-hero.com/api/phone/${singlePhone}`)
         .then(response => response.json())
         .then(data => displaySpecs(data))
-        // .then(data => console.log(data.data))
 }
 
 const displaySpecs = (specificationData) =>{
@@ -67,16 +71,8 @@ const displaySpecs = (specificationData) =>{
     const {storage, displaySize, chipSet, memory, sensors} = specifications.mainFeatures;
     const {WLAN, Bluetooth, GPS, NFC, Radio, USB} = specifications.others;
     const {releaseDate} = specifications;
-    // console.log(Bluetooth) 
-    // console.log(GPS) 
-    // console.log(NFC) 
-    // console.log(Radio) 
-    // console.log(USB) 
-    // console.log(sensors) 
-    // console.log(releaseDate) 
     let modalContentDiv = document.createElement('div');
-    modalContentDiv.classList.add('modal-content');
-    
+    modalContentDiv.classList.add('modal-content');    
     modalContentDiv.innerHTML = `
         <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">${name}</h5>
@@ -85,50 +81,50 @@ const displaySpecs = (specificationData) =>{
         <div class="modal-body">
             <table class="table table-striped">
                 <tr>
-                    <td>Storage:</td>
+                    <td><strong>Storage:</strong></td>
                     <td>${storage}</td>
                 </tr>
                 <tr>
-                    <td>Display Size:</td>
+                    <td><strong>Display Size:</strong></td>
                     <td>${displaySize}</td>
                 </tr>
                 <tr>
-                    <td>Chip Set:</td>
+                    <td><strong>Chip Set:</strong></td>
                     <td>${chipSet}</td>
                 </tr>
                 <tr>
-                    <td>Memory:</td>
+                    <td><strong>Memory:</strong></td>
                     <td>${memory}</td>
                 </tr>
                 <tr>
-                    <td>Sensors:</td>
+                    <td><strong>Sensors:</strong></td>
                     <td>${sensors}</tr>
                 <tr>
-                    <td>WLAN:</td>
+                    <td><strong>WLAN:</strong></td>
                     <td>${WLAN}</td>
                 </tr>
                 <tr>
-                    <td>Bluetooth:</td>
+                    <td><strong>Bluetooth:</strong></td>
                     <td>${Bluetooth}</td>
                 </tr>
                 <tr>
-                    <td>GPS:</td>
+                    <td><strong>GPS:</strong></td>
                     <td>${GPS}</td>
                 </tr>
                 <tr>
-                    <td>NFC:</td>
+                    <td><strong>NFC:</strong></td>
                     <td>${NFC}</td>
                 </tr>
                 <tr>
-                    <td>Radio:</td>
+                    <td><strong>Radio:</strong></td>
                     <td>${Radio}</td>
                 </tr>
                 <tr>
-                    <td>USB:</td>
+                    <td><strong>USB:</strong></td>
                     <td>${USB}</td>
                 </tr>
                 <tr>
-                    <td>Released on:</td>
+                    <td><strong>Released on:</strong></td>
                     <td>${releaseDate}</td>
                 </tr>
             </table>
@@ -138,7 +134,6 @@ const displaySpecs = (specificationData) =>{
         </div>
     </div>
     `
-    
     document.getElementById('modal-dialog').innerHTML="";
     document.getElementById('modal-dialog').appendChild(modalContentDiv);
 }
@@ -171,5 +166,24 @@ const noResults = (isTrue) =>{
 const removeResults = isTrue =>{
     if(isTrue == true){
         document.getElementById('row').innerHTML="";
+    }
+}
+
+// Functions for displaying button to load more results
+// function onDisplay(status){
+//     if(status==true){
+//         document.getElementById('more-results-btn').style.display='block';
+//     }
+//     else{
+//         document.getElementById('more-results-btn').style.display='none';
+//     }
+// }
+
+const onDisplay = status =>{
+    if(status==true){
+        document.getElementById('more-results-btn').style.display='block';
+    }
+    else{
+        document.getElementById('more-results-btn').style.display='none';
     }
 }

@@ -23,7 +23,7 @@
         <div class="searching-section w-50 m-auto">
             <div class="input-group mb-3 shadow">
                 <input type="text" class="form-control border border-primary" id="input-value" placeholder="Write Mobile's Brand Name or Model" aria-label="Write Mobile's Brand Name or Model" aria-describedby="button-addon2">
-                <button class="btn btn-outline-primary" type="button" id="button-addon2" onclick="search()">Button <i class="fas fa-search"></i></button>
+                <button class="btn btn-outline-primary" type="button" id="button-addon2" onclick="search()">Search <i class="fas fa-search"></i></button>
               </div>
         </div>
         <!-- Startup Image Section -->
@@ -62,18 +62,13 @@
         </div>
         <!-- <h4 class="text-center mt-4" id="no-results-msg">Sorry, No results found !!</h4> -->
     </div>
-    
+
     <!-- Show More Button -->
-    <!-- <div class="d-flex justify-content-center m-5 show-more">
-        <button type="button" class="btn btn-outline-primary shadow" id="show-more-btn">Show More</button>
-    </div> -->
-
-
-    <!-- Testing Start -->
-    <!-- Button trigger modal -->
-    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Launch static backdrop modal
-    </button> -->
+    <div id="more-results-btn">
+        <div class="d-flex justify-content-center m-5">
+            <button type="button" class="btn btn-outline-primary shadow">Show More</button>
+        </div>
+    </div>
   
   <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -147,8 +142,7 @@
             </div> -->
         </div>
     </div>
-    
-    <!-- Testing End -->
+
 
     <!-- Footer Section -->
     <footer class="text-center ">
