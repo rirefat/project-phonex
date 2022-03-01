@@ -1,5 +1,7 @@
 const search = () =>{
     let inputValue = document.getElementById('input-value').value;  
+    console.log('clicked')
+    displayStartup(false);
     fetch(`https://openapi.programming-hero.com/api/phones?search=${inputValue}`)
         .then(response => response.json())
         .then(data => displayResult(data))    
@@ -11,8 +13,9 @@ const displayResult = (data) =>{
     console.log(resultStatus);
     // console.log(resultData);
     if(resultStatus==true){
-        document.getElementById('row').innerHTML="";
-        document.getElementById('no-results-msg').innerText="";
+        noResults(false);
+        removeResults(true);
+        
         for(const singleData of resultData){
             console.log(singleData.phone_name);
             
@@ -26,7 +29,7 @@ const displayResult = (data) =>{
                     <img src="${imgUrl}" class="card-img-top mt-3 mb-3" alt="Image of ${phoneName}" title="${phoneName}">
                     <div class="card-body">
                         <h5 class="card-title">${phoneName}</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                        <p class="card-text"><strong>Brand:</strong> ${brandName}</p>
                     </div>
                     <div class="ms-4 mb-4">
                         <button type="button" class="btn btn-outline-primary shadow" id="show-more-btn">Learn More <i class="fas fa-caret-right"></i></button>
@@ -40,7 +43,8 @@ const displayResult = (data) =>{
         }
     }
     else{
-        document.getElementById('no-results-msg').style.display='block';
+        noResults(true);
+        removeResults(true);
     }
 
 
@@ -60,3 +64,33 @@ const displayResult = (data) =>{
     // }
 }
 
+
+//======================================================== All Functions ========================================================
+// Functions for displaying startup image
+const displayStartup = (isTrue) =>{
+    if(isTrue == true){
+        document.getElementById('startup-img').style.display='block';
+        console.log('clicked true');
+    }
+    else{
+        document.getElementById('startup-img').style.display='none';
+        console.log('clicked false');
+    }
+}
+
+// Functions for displaying no results output
+const noResults = (isTrue) =>{
+    if(isTrue == true){
+        document.getElementById('no-results').style.display='block';
+    }
+    else{
+        document.getElementById('no-results').style.display='none';        
+    }
+}
+
+// Functions for removing previous results
+const removeResults = isTrue =>{
+    if(isTrue == true){
+        document.getElementById('row').innerHTML="";
+    }
+}

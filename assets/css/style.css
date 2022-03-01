@@ -12,9 +12,6 @@ body{
 }
 
 /* Main Content */
-.main-content, #show-more-btn{
-    /* display: none; */
-}
 .card img{
     width: 65%;
     margin: auto;
@@ -22,8 +19,10 @@ body{
 
 /* Stand By Image */
 
+
+
 /* No results found Section */
-#no-results-msg{
+#no-results{
     display: none;
 }
 
