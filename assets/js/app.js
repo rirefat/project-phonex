@@ -1,6 +1,7 @@
-// Load Basic Information of Phones
+//=============================================== Load Basic Information of Phones ===============================================
 const search = () =>{
     let inputValue = document.getElementById('input-value').value;  
+    toggleSpinner('block');
     console.log('clicked')
     displayStartup(false);
     fetch(`https://openapi.programming-hero.com/api/phones?search=${inputValue}`)
@@ -12,6 +13,10 @@ const displayResult = (data) =>{
     let resultData = data.data;
     console.log(resultData.length);
     let resultStatus = data.status;
+
+    let dataSet = resultData.slice(0,20);    
+    let dataSet2 = resultData.slice(20,resultData.length);  
+
     if(resultStatus==true){
         noResults(false);
         removeResults(true);  
@@ -21,7 +26,7 @@ const displayResult = (data) =>{
         else{
             onDisplay(false);
         }
-        let dataSet = resultData.slice(0,20);    
+
         for(const singleData of dataSet){
             console.log(singleData.phone_name);            
             let phoneName = singleData.phone_name;
@@ -46,17 +51,19 @@ const displayResult = (data) =>{
                 </div>
             `
             document.getElementById('row').appendChild(newDiv);
+            toggleSpinner('none');
         }
     }
     else{
         noResults(true);
         removeResults(true);
-    }
+        toggleSpinner('none');
+    }    
 }
 
 
 
-// Load Detailed Specification of Phones
+//============================================ Load Detailed Specification of Phones ============================================
 const loadDetails = (singlePhone) =>{
     console.log(singlePhone)
     fetch(`https://openapi.programming-hero.com/api/phone/${singlePhone}`)
@@ -139,6 +146,7 @@ const displaySpecs = (specificationData) =>{
 }
 
 
+
 //======================================================== All Functions ========================================================
 // Functions for displaying startup image
 const displayStartup = (isTrue) =>{
@@ -152,7 +160,7 @@ const displayStartup = (isTrue) =>{
     }
 }
 
-// Functions for displaying no results output
+// Functions for displaying no results output 
 const noResults = (isTrue) =>{
     if(isTrue == true){
         document.getElementById('no-results').style.display='block';
@@ -162,7 +170,7 @@ const noResults = (isTrue) =>{
     }
 }
 
-// Functions for removing previous results
+// Functions for removing previous results 
 const removeResults = isTrue =>{
     if(isTrue == true){
         document.getElementById('row').innerHTML="";
@@ -170,15 +178,6 @@ const removeResults = isTrue =>{
 }
 
 // Functions for displaying button to load more results
-// function onDisplay(status){
-//     if(status==true){
-//         document.getElementById('more-results-btn').style.display='block';
-//     }
-//     else{
-//         document.getElementById('more-results-btn').style.display='none';
-//     }
-// }
-
 const onDisplay = status =>{
     if(status==true){
         document.getElementById('more-results-btn').style.display='block';
@@ -186,4 +185,9 @@ const onDisplay = status =>{
     else{
         document.getElementById('more-results-btn').style.display='none';
     }
+}
+
+// Functions for displaying spinner 
+const toggleSpinner = displayStatus =>{
+    document.getElementById('spinner').style.display=displayStatus;
 }

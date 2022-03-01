@@ -14,11 +14,12 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <div class="container mb-5">
+    <div class="container main-content-area">
         <!-- Logo Section -->
         <div class="logo-section m-4 d-flex justify-content-center">
             <img src="assets/images/logo.png" alt="Logo of phoneX" class="img-fluid">
         </div>
+
         <!-- Search Bar -->
         <div class="searching-section w-50 m-auto">
             <div class="input-group mb-3 shadow">
@@ -26,6 +27,12 @@
                 <button class="btn btn-outline-primary" type="button" id="button-addon2" onclick="search()">Search <i class="fas fa-search"></i></button>
               </div>
         </div>
+
+        <!-- Spinner Section -->        
+        <div id="spinner">
+            <img src="assets/images/Curve-Loading.gif" alt="" srcset="">
+        </div>
+
         <!-- Startup Image Section -->
         <div id="startup-img">
             <div class="stand-img mt-2 pt-5 d-flex justify-content-center">
@@ -38,114 +45,28 @@
             </div>
             <h4 class="text-center mt-4">Sorry, No results found !!</h4>
         </div>
-    </div>
 
-    <!-- Main Content Section -->
-    <div class="container main-content mt-5" id="main-content">
-        <div class="row row-cols-1 row-cols-md-3 g-4" id="row">            
-            <!-- <div class="col">
-              <div class="card h-100 shadow">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                </div>
-                <div class="ms-4 mb-4">
-                    <button type="button" class="btn btn-outline-primary shadow" id="show-more-btn">Show More</button>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">Release Date: Nothing to show</small>
-                </div>
-              </div>
-            </div> -->
-            
+        <!-- Main Content Section -->
+        <div class="container main-content mt-5" id="main-content">
+            <div class="row row-cols-1 row-cols-md-3 g-4" id="row"></div>
         </div>
-        <!-- <h4 class="text-center mt-4" id="no-results-msg">Sorry, No results found !!</h4> -->
-    </div>
 
-    <!-- Show More Button -->
-    <div id="more-results-btn">
-        <div class="d-flex justify-content-center m-5">
-            <button type="button" class="btn btn-outline-primary shadow">Show More</button>
+        <!-- Show More Button -->
+        <div id="more-results-btn">
+            <div class="d-flex justify-content-center m-5">
+                <button type="button" class="btn btn-outline-primary shadow" onclick="displayRestResults()">Show More</button>
+            </div>
         </div>
-    </div>
-  
-  <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" id="modal-dialog">
-            <!-- <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">iPhone 13 Pro Max</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-striped">
-                        <tr>
-                            <td class="text-bold">Storage:</td>
-                            <td>128GB/256GB/1TB storage, no card slot</td>
-                        </tr>
-                        <tr>
-                            <td>Display Size:</td>
-                            <td>6.7 inches, 109.8 cm2 (~87.4% screen-to-body ratio)</td>
-                        </tr>
-                        <tr>
-                            <td>Chip Set:</td>
-                            <td>pple A15 Bionic (5 nm)</td>
-                        </tr>
-                        <tr>
-                            <td>Memory:</td>
-                            <td>128GB 6GB RAM, 256GB 6GB RAM, 512GB 6GB RAM, 1TB 6GB RAM</td>
-                        </tr>
-                        <tr>
-                            <td>Sensors:</td>
-                            <td>"Face ID",
-                                "accelerometer",
-                                "gyro",
-                                "proximity",
-                                "compass",
-                                "barometer"</td>
-                        </tr>
-                        <tr>
-                            <td>WLAN:</td>
-                            <td>Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, hotspot</td>
-                        </tr>
-                        <tr>
-                            <td>Bluetooth:</td>
-                            <td>5.0, A2DP, LE</td>
-                        </tr>
-                        <tr>
-                            <td>GPS:</td>
-                            <td>Yes, with A-GPS, GLONASS, GALILEO, BDS, QZSS</td>
-                        </tr>
-                        <tr>
-                            <td>NFC:</td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <td>Radio:</td>
-                            <td>No</td>
-                        </tr>
-                        <tr>
-                            <td>USB:</td>
-                            <td>Lightning, USB 2.0"</td>
-                        </tr>
-                        <tr>
-                            <td>Released on:</td>
-                            <td>Released 2021, September 24</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
-                </div>
-            </div> -->
+    
+    <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" id="modal-dialog"></div>
         </div>
-    </div>
+    </div>   
 
 
     <!-- Footer Section -->
-    <footer class="text-center ">
+    <footer class="text-center">
         <p><i class="far fa-copyright"></i> 2022 <a href="#">phoneX</a></p>
     </footer>
     <!-- Bootstrap JS Scripts -->
