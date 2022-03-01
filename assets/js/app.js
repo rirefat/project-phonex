@@ -26,7 +26,7 @@ const displayResult = (data) =>{
         else{
             onDisplay(false);
         }
-
+        // For Data Set-1 (First 20 Results)
         for(const singleData of dataSet){
             console.log(singleData.phone_name);            
             let phoneName = singleData.phone_name;
@@ -34,6 +34,34 @@ const displayResult = (data) =>{
             let imgUrl = singleData.image;
             let slug = singleData.slug;
             let newDiv = document.createElement('div');
+            newDiv.classList.add('col');
+            newDiv.innerHTML=`
+                <div class="card h-100 shadow">
+                    <img src="${imgUrl}" class="card-img-top mt-3 mb-3" alt="Image of ${phoneName}" title="${phoneName}">
+                    <div class="card-body">
+                        <h5 class="card-title">${phoneName}</h5>
+                        <p class="card-text"><strong>Brand:</strong> ${brandName}</p>
+                    </div>
+                    <div class="ms-4 mb-4">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" shadow" id="show-more-btn" onclick="loadDetails('${slug}')">Learn More <i class="fas fa-caret-right"></i></button>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted"><strong>Release Date:</strong> Nothing to show</small>
+                    </div>
+                </div>
+            `
+            document.getElementById('row').appendChild(newDiv);
+            toggleSpinner('none');
+        }
+        // For Data Set-2 (Rest of the Results)
+        for(const singleData of dataSet2){
+            console.log(singleData.phone_name);            
+            let phoneName = singleData.phone_name;
+            let brandName = singleData.brand;
+            let imgUrl = singleData.image;
+            let slug = singleData.slug;
+            let newDiv = document.createElement('div');
+            newDiv.classList.add('data-set-2');
             newDiv.classList.add('col');
             newDiv.innerHTML=`
                 <div class="card h-100 shadow">
@@ -61,7 +89,14 @@ const displayResult = (data) =>{
     }    
 }
 
-
+const displayRestResults = () =>{
+    // document.getElementById('data-set-2').style.display='block';
+    let dataSet2 = document.getElementsByClassName('data-set-2');
+    for(const data of dataSet2){
+        data.style.display='block';
+    }
+    document.getElementById('more-results-btn').style.display='none';
+}
 
 //============================================ Load Detailed Specification of Phones ============================================
 const loadDetails = (singlePhone) =>{
