@@ -34,10 +34,10 @@ const displayResult = (data) =>{
                         <p class="card-text"><strong>Brand:</strong> ${brandName}</p>
                     </div>
                     <div class="ms-4 mb-4">
-                        <button type="button" class="btn btn-outline-primary shadow" id="show-more-btn" onclick="loadDetails('${slug}')">Learn More <i class="fas fa-caret-right"></i></button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" shadow" id="show-more-btn" onclick="loadDetails('${slug}')">Learn More <i class="fas fa-caret-right"></i></button>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Release Date: Nothing to show</small>
+                        <small class="text-muted"><strong>Release Date:</strong> Nothing to show</small>
                     </div>
                 </div>
             `
@@ -55,12 +55,92 @@ const displayResult = (data) =>{
 const loadDetails = (singlePhone) =>{
     console.log(singlePhone)
     fetch(`https://openapi.programming-hero.com/api/phone/${singlePhone}`)
-        .then(res => res.json())
+        .then(response => response.json())
         .then(data => displaySpecs(data))
+        // .then(data => console.log(data.data))
 }
 
 const displaySpecs = (specificationData) =>{
     console.log(specificationData.data)
+    let specifications = specificationData.data;
+    const {name} = specifications;
+    const {storage, displaySize, chipSet, memory, sensors} = specifications.mainFeatures;
+    const {WLAN, Bluetooth, GPS, NFC, Radio, USB} = specifications.others;
+    const {releaseDate} = specifications;
+    // console.log(Bluetooth) 
+    // console.log(GPS) 
+    // console.log(NFC) 
+    // console.log(Radio) 
+    // console.log(USB) 
+    // console.log(sensors) 
+    // console.log(releaseDate) 
+    let modalContentDiv = document.createElement('div');
+    modalContentDiv.classList.add('modal-content');
+    
+    modalContentDiv.innerHTML = `
+        <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">${name}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped">
+                <tr>
+                    <td>Storage:</td>
+                    <td>${storage}</td>
+                </tr>
+                <tr>
+                    <td>Display Size:</td>
+                    <td>${displaySize}</td>
+                </tr>
+                <tr>
+                    <td>Chip Set:</td>
+                    <td>${chipSet}</td>
+                </tr>
+                <tr>
+                    <td>Memory:</td>
+                    <td>${memory}</td>
+                </tr>
+                <tr>
+                    <td>Sensors:</td>
+                    <td>${sensors}</tr>
+                <tr>
+                    <td>WLAN:</td>
+                    <td>${WLAN}</td>
+                </tr>
+                <tr>
+                    <td>Bluetooth:</td>
+                    <td>${Bluetooth}</td>
+                </tr>
+                <tr>
+                    <td>GPS:</td>
+                    <td>${GPS}</td>
+                </tr>
+                <tr>
+                    <td>NFC:</td>
+                    <td>${NFC}</td>
+                </tr>
+                <tr>
+                    <td>Radio:</td>
+                    <td>${Radio}</td>
+                </tr>
+                <tr>
+                    <td>USB:</td>
+                    <td>${USB}</td>
+                </tr>
+                <tr>
+                    <td>Released on:</td>
+                    <td>${releaseDate}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    `
+    
+    document.getElementById('modal-dialog').innerHTML="";
+    document.getElementById('modal-dialog').appendChild(modalContentDiv);
 }
 
 
