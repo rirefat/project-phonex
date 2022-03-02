@@ -13,7 +13,9 @@ Logo Section
     transform: scale(1.15);
 }
 
-/* Spinner Section */
+/*======================================================================================== 
+Spinner Section 
+========================================================================================*/
 #spinner{
     display: none;
     position: absolute;
@@ -26,6 +28,9 @@ Main Content
 ========================================================================================*/
 .main-content-area{
     min-height: 88vh;
+}
+.card:hover{
+    box-shadow: 6px 6px 20px #79AEFC !important;
 }
 .card img{
     width: 65%;
@@ -51,9 +56,6 @@ No results found Section
 /*======================================================================================== 
 Footer Section 
 ========================================================================================*/
-footer{
-    /* margin-top: 6%; */
-}
 footer a{
     text-decoration: none;
     font-weight: 700;

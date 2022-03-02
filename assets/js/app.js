@@ -3,7 +3,6 @@ const search = () =>{
     let inputValue = document.getElementById('input-value').value;
     document.getElementById('input-value').value='';  
     toggleSpinner('block');
-    console.log('clicked')
     displayStartup(false);
     fetch(`https://openapi.programming-hero.com/api/phones?search=${inputValue}`)
         .then(response => response.json())
@@ -12,7 +11,6 @@ const search = () =>{
 
 const displayResult = (data) =>{
     let resultData = data.data;
-    console.log(resultData.length);
     let resultStatus = data.status;
 
     let dataSet = resultData.slice(0,20);    
@@ -27,9 +25,8 @@ const displayResult = (data) =>{
         else{
             onDisplay(false);
         }
-        // For Data Set-1 (First 20 Results)
-        for(const singleData of dataSet){
-            console.log(singleData.phone_name);            
+        //*********************** For Data Set-1 (First 20 Results) *************************
+        for(const singleData of dataSet){          
             let phoneName = singleData.phone_name;
             let brandName = singleData.brand;
             let imgUrl = singleData.image;
@@ -51,9 +48,8 @@ const displayResult = (data) =>{
             document.getElementById('row').appendChild(newDiv);
             toggleSpinner('none');
         }
-        // For Data Set-2 (Rest of the Results)
-        for(const singleData of dataSet2){
-            console.log(singleData.phone_name);            
+        //*********************** For Data Set-2 (Rest of the Results) **********************
+        for(const singleData of dataSet2){           
             let phoneName = singleData.phone_name;
             let brandName = singleData.brand;
             let imgUrl = singleData.image;
@@ -62,7 +58,7 @@ const displayResult = (data) =>{
             newDiv.classList.add('data-set-2');
             newDiv.classList.add('col');
             newDiv.innerHTML=`
-                <div class="card h-100 shadow">
+                <div class="card h-100 shadow rounded-3">
                     <img src="${imgUrl}" class="card-img-top mt-3 mb-3" alt="Image of ${phoneName}" title="${phoneName}">
                     <div class="card-body">
                         <h5 class="card-title">${phoneName}</h5>
@@ -88,7 +84,6 @@ const displayResult = (data) =>{
 }
 
 const displayRestResults = () =>{
-    // document.getElementById('data-set-2').style.display='block';
     let dataSet2 = document.getElementsByClassName('data-set-2');
     for(const data of dataSet2){
         data.style.display='block';
@@ -98,28 +93,20 @@ const displayRestResults = () =>{
 
 //============================================ Load Detailed Specification of Phones ============================================
 const loadDetails = (singlePhone) =>{
-    console.log(singlePhone)
     fetch(`https://openapi.programming-hero.com/api/phone/${singlePhone}`)
         .then(response => response.json())
         .then(data => displaySpecs(data))
 }
 
 const displaySpecs = (specificationData) =>{
-    console.log(specificationData.data)
     toggleSpinner('block');
     let specifications = specificationData.data;
     const {name} = specifications;
-    const {storage, displaySize, chipSet, memory, sensors} = specifications.mainFeatures;
-    const {WLAN, Bluetooth, GPS, NFC, Radio, USB} = specifications.others;
-    // const {releaseDate} = specifications.releaseDate;
+    const {brand} = specifications;
+    const {image} = specifications;
+    const {storage, displaySize, chipSet, memory, sensors} = specifications.mainFeatures ? specifications.mainFeatures : "No Data To Show";
+    const {WLAN, Bluetooth, GPS, NFC, Radio, USB} = specifications.others ? specifications.others : "No Data To Show";
     const releaseOn = specifications.releaseDate ? specifications.releaseDate : "No Data To Show";
-    // let releaseOn = releaseDate;
-    // if(releaseDate == undefined){
-    //     releaseDate = "No data to show";
-    // }
-    // else{
-    //     return releaseDate;
-    // }
     let modalContentDiv = document.createElement('div');
     modalContentDiv.classList.add('modal-content');    
     modalContentDiv.innerHTML = `
@@ -129,6 +116,17 @@ const displaySpecs = (specificationData) =>{
         </div>
         <div class="modal-body">
             <table class="table table-striped">
+                <tr>
+                    <td>
+                        <img src="${image}">
+                    </td>
+                    <td>
+                        <p><strong>Model:</strong> ${name}</p>
+                        <p><strong>Brand:</strong> ${brand}</p>
+                        <p><strong>Release Date:</strong> ${releaseOn}</p>  
+                        
+                    </td>
+                </tr>
                 <tr>
                     <td><strong>Storage:</strong></td>
                     <td>${storage}</td>
@@ -172,14 +170,10 @@ const displaySpecs = (specificationData) =>{
                     <td><strong>USB:</strong></td>
                     <td>${USB}</td>
                 </tr>
-                <tr>
-                    <td><strong>Release Date:</strong></td>
-                    <td>${releaseOn}</td>
-                </tr>
             </table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close <i class="fas fa-times"></i></button>
         </div>
     </div>
     `
@@ -191,19 +185,17 @@ const displaySpecs = (specificationData) =>{
 
 
 //======================================================== All Functions ========================================================
-// Functions for displaying startup image
+//************************* Functions for displaying startup image **************************
 const displayStartup = (isTrue) =>{
     if(isTrue == true){
         document.getElementById('startup-img').style.display='block';
-        console.log('clicked true');
     }
     else{
         document.getElementById('startup-img').style.display='none';
-        console.log('clicked false');
     }
 }
 
-// Functions for displaying no results output 
+//*********************** Functions for displaying no results output ************************
 const noResults = (isTrue) =>{
     if(isTrue == true){
         document.getElementById('no-results').style.display='block';
@@ -213,14 +205,14 @@ const noResults = (isTrue) =>{
     }
 }
 
-// Functions for removing previous results 
+//************************* Functions for removing previous results *************************
 const removeResults = isTrue =>{
     if(isTrue == true){
         document.getElementById('row').innerHTML="";
     }
 }
 
-// Functions for displaying button to load more results
+//****************** Functions for displaying button to load more results *******************
 const onDisplay = status =>{
     if(status==true){
         document.getElementById('more-results-btn').style.display='block';
@@ -230,9 +222,8 @@ const onDisplay = status =>{
     }
 }
 
-// Functions for displaying spinner 
+//**************************** Functions for displaying spinner *****************************
 const toggleSpinner = displayStatus =>{
     document.getElementById('spinner').style.display=displayStatus;
 }
-
 
