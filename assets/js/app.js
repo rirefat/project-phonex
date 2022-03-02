@@ -1,6 +1,7 @@
 //=============================================== Load Basic Information of Phones ===============================================
 const search = () =>{
-    let inputValue = document.getElementById('input-value').value;  
+    let inputValue = document.getElementById('input-value').value;
+    document.getElementById('input-value').value='';  
     toggleSpinner('block');
     console.log('clicked')
     displayStartup(false);
@@ -44,9 +45,6 @@ const displayResult = (data) =>{
                     </div>
                     <div class="ms-4 mb-4">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" shadow" id="show-more-btn" onclick="loadDetails('${slug}')">Learn More <i class="fas fa-caret-right"></i></button>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted"><strong>Release Date:</strong> Nothing to show</small>
                     </div>
                 </div>
             `
@@ -108,11 +106,20 @@ const loadDetails = (singlePhone) =>{
 
 const displaySpecs = (specificationData) =>{
     console.log(specificationData.data)
+    toggleSpinner('block');
     let specifications = specificationData.data;
     const {name} = specifications;
     const {storage, displaySize, chipSet, memory, sensors} = specifications.mainFeatures;
     const {WLAN, Bluetooth, GPS, NFC, Radio, USB} = specifications.others;
-    const {releaseDate} = specifications;
+    // const {releaseDate} = specifications.releaseDate;
+    const releaseOn = specifications.releaseDate ? specifications.releaseDate : "No Data To Show";
+    // let releaseOn = releaseDate;
+    // if(releaseDate == undefined){
+    //     releaseDate = "No data to show";
+    // }
+    // else{
+    //     return releaseDate;
+    // }
     let modalContentDiv = document.createElement('div');
     modalContentDiv.classList.add('modal-content');    
     modalContentDiv.innerHTML = `
@@ -166,8 +173,8 @@ const displaySpecs = (specificationData) =>{
                     <td>${USB}</td>
                 </tr>
                 <tr>
-                    <td><strong>Released on:</strong></td>
-                    <td>${releaseDate}</td>
+                    <td><strong>Release Date:</strong></td>
+                    <td>${releaseOn}</td>
                 </tr>
             </table>
         </div>
@@ -178,6 +185,7 @@ const displaySpecs = (specificationData) =>{
     `
     document.getElementById('modal-dialog').innerHTML="";
     document.getElementById('modal-dialog').appendChild(modalContentDiv);
+    toggleSpinner('none');
 }
 
 
@@ -226,3 +234,5 @@ const onDisplay = status =>{
 const toggleSpinner = displayStatus =>{
     document.getElementById('spinner').style.display=displayStatus;
 }
+
+
